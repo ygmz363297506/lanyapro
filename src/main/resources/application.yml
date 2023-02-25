@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: ly-mng
+  security:
+    user:
+      name: admin
+      password: admin
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/lanya?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root123
+  thymeleaf:
+    cache: false
+  output:
+    ansi:
+      enabled: always
+mybatis:
+  mapper-locations: mapper/*Mapper.xml
+  type-aliases-package: com.example.lanyapro.vo
+#logging:
+#  level:
+#    com.example.lanyapro.* : info

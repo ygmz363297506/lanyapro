@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.lanyapro.mapper.TLanyaUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.lanyapro.vo.TLanyaUser">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userNo" column="user_no" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="creationDate" column="creation_date" jdbcType="TIMESTAMP"/>
+            <result property="creationUser" column="creation_user" jdbcType="VARCHAR"/>
+            <result property="modificationDate" column="modification_date" jdbcType="TIMESTAMP"/>
+            <result property="modificationUser" column="modification_user" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_name,user_no,
+        status,creation_date,creation_user,
+        modification_date,modification_user
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_lanya_user
+        where  id = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_lanya_user
+        where  id = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.lanyapro.vo.TLanyaUser" useGeneratedKeys="true">
+        insert into t_lanya_user
+        ( id,user_name,user_no
+        ,status,creation_date,creation_user
+        ,modification_date,modification_user)
+        values (#{id,jdbcType=INTEGER},#{userName,jdbcType=VARCHAR},#{userNo,jdbcType=VARCHAR}
+        ,#{status,jdbcType=INTEGER},#{creationDate,jdbcType=TIMESTAMP},#{creationUser,jdbcType=VARCHAR}
+        ,#{modificationDate,jdbcType=TIMESTAMP},#{modificationUser,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.lanyapro.vo.TLanyaUser" useGeneratedKeys="true">
+        insert into t_lanya_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="userName != null">user_name,</if>
+                <if test="userNo != null">user_no,</if>
+                <if test="status != null">status,</if>
+                <if test="creationDate != null">creation_date,</if>
+                <if test="creationUser != null">creation_user,</if>
+                <if test="modificationDate != null">modification_date,</if>
+                <if test="modificationUser != null">modification_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
+                <if test="userNo != null">#{userNo,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="creationDate != null">#{creationDate,jdbcType=TIMESTAMP},</if>
+                <if test="creationUser != null">#{creationUser,jdbcType=VARCHAR},</if>
+                <if test="modificationDate != null">#{modificationDate,jdbcType=TIMESTAMP},</if>
+                <if test="modificationUser != null">#{modificationUser,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.lanyapro.vo.TLanyaUser">
+        update t_lanya_user
+        <set>
+                <if test="userName != null">
+                    user_name = #{userName,jdbcType=VARCHAR},
+                </if>
+                <if test="userNo != null">
+                    user_no = #{userNo,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="creationDate != null">
+                    creation_date = #{creationDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="creationUser != null">
+                    creation_user = #{creationUser,jdbcType=VARCHAR},
+                </if>
+                <if test="modificationDate != null">
+                    modification_date = #{modificationDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="modificationUser != null">
+                    modification_user = #{modificationUser,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.lanyapro.vo.TLanyaUser">
+        update t_lanya_user
+        set 
+            user_name =  #{userName,jdbcType=VARCHAR},
+            user_no =  #{userNo,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=INTEGER},
+            creation_date =  #{creationDate,jdbcType=TIMESTAMP},
+            creation_user =  #{creationUser,jdbcType=VARCHAR},
+            modification_date =  #{modificationDate,jdbcType=TIMESTAMP},
+            modification_user =  #{modificationUser,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>
