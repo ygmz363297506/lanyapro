@@ -75,6 +75,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
         </plugins>

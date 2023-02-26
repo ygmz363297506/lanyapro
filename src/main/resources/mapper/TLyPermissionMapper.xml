@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.lanyapro.mapper.TLyPermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.lanyapro.vo.TLyPermission">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="permissName" column="permiss_name" jdbcType="VARCHAR"/>
+            <result property="perms" column="perms" jdbcType="VARCHAR"/>
+            <result property="path" column="path" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="addUser" column="add_user" jdbcType="VARCHAR"/>
+            <result property="editUser" column="edit_user" jdbcType="VARCHAR"/>
+            <result property="addDate" column="add_date" jdbcType="TIMESTAMP"/>
+            <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,permiss_name,perms,
+        path,status,add_user,
+        edit_user,add_date,update_date
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_ly_permission
+        where  id = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <select id="selectListByUserId"  resultType="java.lang.Integer">
+        select distinct tlp.perms from t_ly_user_role t1
+           left join t_ly_role_permission tlrp on t1.role_id = tlrp.role_id
+           left join t_ly_permission tlp on tlrp.permission_id = tlp.id
+        where t1.user_id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_ly_permission
+        where  id = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.lanyapro.vo.TLyPermission" useGeneratedKeys="true">
+        insert into t_ly_permission
+        ( id,permiss_name,perms
+        ,path,status,add_user
+        ,edit_user,add_date,update_date
+        )
+        values (#{id,jdbcType=INTEGER},#{permissName,jdbcType=VARCHAR},#{perms,jdbcType=VARCHAR}
+        ,#{path,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{addUser,jdbcType=VARCHAR}
+        ,#{editUser,jdbcType=VARCHAR},#{addDate,jdbcType=TIMESTAMP},#{updateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.lanyapro.vo.TLyPermission" useGeneratedKeys="true">
+        insert into t_ly_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="permissName != null">permiss_name,</if>
+                <if test="perms != null">perms,</if>
+                <if test="path != null">path,</if>
+                <if test="status != null">status,</if>
+                <if test="addUser != null">add_user,</if>
+                <if test="editUser != null">edit_user,</if>
+                <if test="addDate != null">add_date,</if>
+                <if test="updateDate != null">update_date,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="permissName != null">#{permissName,jdbcType=VARCHAR},</if>
+                <if test="perms != null">#{perms,jdbcType=VARCHAR},</if>
+                <if test="path != null">#{path,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="addUser != null">#{addUser,jdbcType=VARCHAR},</if>
+                <if test="editUser != null">#{editUser,jdbcType=VARCHAR},</if>
+                <if test="addDate != null">#{addDate,jdbcType=TIMESTAMP},</if>
+                <if test="updateDate != null">#{updateDate,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.lanyapro.vo.TLyPermission">
+        update t_ly_permission
+        <set>
+                <if test="permissName != null">
+                    permiss_name = #{permissName,jdbcType=VARCHAR},
+                </if>
+                <if test="perms != null">
+                    perms = #{perms,jdbcType=VARCHAR},
+                </if>
+                <if test="path != null">
+                    path = #{path,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="addUser != null">
+                    add_user = #{addUser,jdbcType=VARCHAR},
+                </if>
+                <if test="editUser != null">
+                    edit_user = #{editUser,jdbcType=VARCHAR},
+                </if>
+                <if test="addDate != null">
+                    add_date = #{addDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateDate != null">
+                    update_date = #{updateDate,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.lanyapro.vo.TLyPermission">
+        update t_ly_permission
+        set 
+            permiss_name =  #{permissName,jdbcType=VARCHAR},
+            perms =  #{perms,jdbcType=VARCHAR},
+            path =  #{path,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=INTEGER},
+            add_user =  #{addUser,jdbcType=VARCHAR},
+            edit_user =  #{editUser,jdbcType=VARCHAR},
+            add_date =  #{addDate,jdbcType=TIMESTAMP},
+            update_date =  #{updateDate,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>

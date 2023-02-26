@@ -1,13 +1,23 @@
 package com.example.lanyapro.service.impl;
 
-import com.example.lanyapro.mapper.TLanyaUserMapper;
+import com.example.lanyapro.mapper.TLyPermissionMapper;
+import com.example.lanyapro.mapper.TLyRoleMapper;
+import com.example.lanyapro.mapper.TLyUserMapper;
 import com.example.lanyapro.service.LYUserService;
 import com.example.lanyapro.vo.TLanyaUser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
+import com.example.lanyapro.vo.TLyRole;
+import com.example.lanyapro.vo.TLyUser;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 详细描述:
@@ -21,10 +31,13 @@ import javax.annotation.Resource;
 public class LYUserServiceImpl implements LYUserService {
 
     @Resource
-    private TLanyaUserMapper userMapper;
+    private TLyUserMapper userMapper;
+    @Resource
+    private TLyPermissionMapper permissionMapper;
 
     @Override
     public TLanyaUser getOne(Integer id) {
-        return userMapper.selectByPrimaryKey(id);
+        return new TLanyaUser();
     }
+
 }
